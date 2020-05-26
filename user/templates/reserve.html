@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>
+        {% block title_ %}
+            Home
+        {% endblock title_ %}
+    </title>
+    <link rel="stylesheet" type="text/css" href='{% static "user/css/style.css" %}'>
+    <link rel="stylesheet" type="text/css" href='{% static "user/css/style1home.css" %}'>
+</head>
+
+<body>
+    <div id="header">
+        <a href="{% url 'user:home' %}"><h1 id='ts' style="margin-left: 25px">PIZZA LAZIZA</h1></a>
+        <div class="cart">
+            <a href="{% url 'user:home' %}">Back to Home Page</a>
+        </div>
+    </div>
+    {% block content %}
+        content
+    {% endblock content %}
+
+    {% block table %}
+
+    {% endblock table %}
+</body>
+
+</html>

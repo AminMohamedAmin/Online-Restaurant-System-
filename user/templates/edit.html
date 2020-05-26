@@ -1,0 +1,53 @@
+{% extends "reserve.html" %}
+
+{% block title_ %}
+	Reservations
+{% endblock title_ %}
+
+{% block content %}
+    <div style="height:20px;"></div>
+	<div class="center-div">
+	    <form method="post" action="{% url 'user:reservesfound' %}">
+            {% csrf_token %}
+            <p><input class="w3-input w3-padding-16 w3-border" type="email" placeholder="Your Reserved Email" required name="Emaill"></p>
+            <p><button class="w3-button w3-blue-grey w3-block" type="submit">Found</button></p>
+        </form>
+	</div>
+{% endblock content %}
+
+{% block table %}
+    <div class="w3-container" style="margin: auto; text-align: center; padding-bottom: 50px">
+      <h2>Your Previous Reservation</h2>
+      <table class="w3-table-all" style="width: 820px">
+          <tr class="w3-blue-gray">
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Nums of People</th>
+            <th>Attendance Date</th>
+            <th>Attendance Time</th>
+            <th>Specific Message</th>
+            <th>Created at</th>
+            <th>Updated at</th>
+            <th></th>
+            <th></th>
+          </tr>
+            {% for item in r %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.phone }}</td>
+                    <td>{{ item.many }}</td>
+                    <td>{{ item.date }}</td>
+                    <td>{{ item.time }}</td>
+                    <td>{{ item.message }}</td>
+                    <td>{{ item.created }}</td>
+                    <td>{{ item.updated }}</td>
+                    {% if now.date < item.date %}
+                        <td><a href="{% url 'user:updatetable' item.id %}#table" class="w3-green" style="padding: 4px; text-decoration: none">Update</a></td>
+                        <td><a href="{% url 'user:deletetable' item.id %}" class="w3-red" style="padding: 4px; text-decoration: none">Delete</a></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+
+      </table>
+    </div>
+{% endblock table %}

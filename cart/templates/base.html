@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>
+        {% block title_ %}
+            Home
+        {% endblock title_ %}
+    </title>
+    <link rel="stylesheet" type="text/css" href='{% static "css/style.css" %}'>
+</head>
+
+<body>
+    <div id="header">
+        <a href="{% url 'user:home' %}#menuu"><h1 id='ts' style="margin-left: 25px">PIZZA LAZIZA</h1></a>
+        <div class="cart">
+            {% with total_items=cart|length %}
+            {% if cart|length > 0 %}
+            Your Cart:
+            <a href="{% url 'cart:cart_detail' %}">
+                           {{total_items}} item {{total_items|pluralize}}, ${{cart.get_total_price}}</a>
+           {% else %}
+              Your cart is empty
+            {% endif %}
+           {% endwith %}
+        </div>
+    </div>
+    {% block content %}
+        content
+    {% endblock content %}
+</body>
+
+</html>

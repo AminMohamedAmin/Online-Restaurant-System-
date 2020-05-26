@@ -1,0 +1,31 @@
+{% extends "reserve.html" %}
+{% load static %}
+{% block title_ %}
+	Admin Dashboard
+{% endblock title_ %}
+
+{% block content %}
+    <div style="height:20px;"></div>
+    {% if request.user.is_authenticated == False %}
+	<div class="center-div">
+        <div style="margin: auto; margin-top:20px">
+            {%include 'messages.html'%}
+        </div>
+	    <form method="post" action="{% url 'user:saveinlog' %}">
+            {% csrf_token %}
+            <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Your UserName" required name="USERNAME"></p>
+            <p><input class="w3-input w3-padding-16 w3-border" type="password" placeholder="Your Password" required name="PASSWORD"></p>
+            <p><button class="w3-button w3-blue-grey w3-block" type="submit">Login</button></p>
+        </form>
+	</div>
+    {% endif %}
+    {% if request.user.is_authenticated %}
+        <div class="center-div">
+            <div style="margin: auto; margin-top:20px">
+                <h2 style="text-align: center">Hello Admin</h2>
+                <p><a href="{% url 'user:outlog' %}"><button class="w3-button w3-blue-grey w3-block" type="submit">Logout</button></a></p>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock content %}

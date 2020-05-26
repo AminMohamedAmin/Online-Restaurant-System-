@@ -1,0 +1,20 @@
+{% extends "reserve.html" %}
+
+{% block title_ %}
+	Thank you
+{% endblock title_ %}
+
+{% block content %}
+    <div style="height:20px;"></div>
+	<div class="center-div" style="text-align: center">
+	<h1>Thank you</h1>
+	<p>your reservation has been successfully completed. your reserved table is <strong>{{table}}</strong></p>
+    <p>Please keep this number and bring it with you during attendance</p>
+	</div>
+
+    <div style="height:20px;"></div>
+	<div class="center-div" style="text-align: center">
+        <p> <span style="color: red"> Note </span> you can update your reservation until the beginning of your reservation attendance date </p>
+	</div>
+    <p style="width: 400px; margin: auto; margin-top: 50px"><a  style="text-decoration: none" href="{% url 'user:reserves' %}"><button style="padding: 10px;" class="w3-button w3-blue-grey w3-block" type="submit">EDIT EXISTING RESERVATION</button></a></p>
+{% endblock content %}

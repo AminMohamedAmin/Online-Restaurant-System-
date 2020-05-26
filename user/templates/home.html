@@ -1,0 +1,385 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Pizza Laziza</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" href='{% static "user/css/style1home.css" %}'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic+SC">
+    <link rel="stylesheet" type="text/css" href='{% static "user/css/style2home.css" %}'>
+    <link rel="stylesheet" type="text/css" href='{% static "user/css/style3home.css" %}'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+    <!-- Navbar (sit on top) -->
+    <div class="w3-top w3-hide-small">
+      <div class="w3-bar w3-xlarge w3-black w3-opacity w3-hover-opacity-off" id="myNavbar">
+        <a href="#" class="w3-bar-item w3-button">HOME</a>
+{#        <a onclick="document.getElementById('menu').style.display='block'" class="w3-bar-item w3-button">MENU</a>#}
+        <a onclick="document.getElementById('about').style.display='block'" class="w3-bar-item w3-button">ABOUT</a>
+        <a onclick="document.getElementById('location').style.display='block'" class="w3-bar-item w3-button">LOCATION</a>
+        <a onclick="document.getElementById('hours').style.display='block'" class="w3-bar-item w3-button">OPENING HOURS</a>
+        <a onclick="document.getElementById('table').style.display='block'" class="w3-bar-item w3-button">TABLE RESERVATION</a>
+        <a onclick="document.getElementById('contact').style.display='block'" class="w3-bar-item w3-button">CONTACT</a>
+        <a onclick="document.getElementById('careers').style.display='block'" class="w3-bar-item w3-button">CAREERS</a>
+        {% if request.user.is_authenticated %}
+            <a onclick="document.getElementById('admin').style.display='block'" class="w3-bar-item w3-button">Admin</a>
+        {% endif %}
+          <div class="w3-container w3-xlarge w3-padding" style="float: right">
+              <span>Follow our page in FB & Inst to get discount coupons daily</span>
+            <a style="margin-right: 10px; margin-left: 10px"><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
+            <a><i class="fa fa-instagram w3-hover-opacity"></i></a>
+          </div>
+      </div>
+        <div style="float: right">
+            <span class="w3-tag w3-xlarge">
+                <div class="cart">
+                    {% with total_items=cart|length %}
+                    {% if cart|length > 0 %}
+                    Your Cart:
+                    <a href="{% url 'cart:cart_detail' %}">
+                                   {{total_items}} item {{total_items|pluralize}}, ${{cart.get_total_price}}</a>
+                   {% else %}
+                      Your cart is empty
+                    {% endif %}
+                   {% endwith %}
+                </div>
+            </span>
+        </div>
+    </div>
+
+{#    <div id="menu" class="w3-modal">#}
+{#      <div class="w3-modal-content w3-animate-zoom">#}
+{#        <div class="w3-container w3-black w3-display-container">#}
+{#          <span onclick="document.getElementById('menu').style.display='none'" class="w3-button w3-display-topright w3-xlarge">close</span>#}
+{#          <!-- Menu Container -->#}
+{#            <div class="w3-container w3-black w3-padding-64 w3-xxlarge" id="menu">#}
+{#              <div class="w3-content">#}
+{#                <h1 class="w3-center w3-jumbo" style="margin-bottom:64px">THE MENU</h1>#}
+{#                <div class="w3-row w3-center w3-border w3-border-dark-grey">#}
+{#                  <a href="javascript:void(0)" onclick="openMenu(event, 'Pizza');" id="myLink">#}
+{#                    <div class="w3-col s4 tablink w3-padding-large w3-hover-red">Pizza</div>#}
+{#                  </a>#}
+{#                  <a href="javascript:void(0)" onclick="openMenu(event, 'Pasta');">#}
+{#                    <div class="w3-col s4 tablink w3-padding-large w3-hover-red">Salads</div>#}
+{#                  </a>#}
+{#                  <a href="javascript:void(0)" onclick="openMenu(event, 'Starter');">#}
+{#                    <div class="w3-col s4 tablink w3-padding-large w3-hover-red">Starter</div>#}
+{#                  </a>#}
+{#                </div>#}
+{##}
+{#                <div id="Pizza" class="w3-container menu w3-padding-32 w3-white">#}
+{#                  <h1><b>Margherita</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$12.50</span></h1>#}
+{#                  <p class="w3-text-grey">Fresh tomatoes, fresh mozzarella, fresh basil</p>#}
+{#                  <hr>#}
+{##}
+{#                  <h1><b>Formaggio</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$15.50</span></h1>#}
+{#                  <p class="w3-text-grey">Four cheeses (mozzarella, parmesan, pecorino, jarlsberg)</p>#}
+{#                  <hr>#}
+{##}
+{#                  <h1><b>Chicken</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$17.00</span></h1>#}
+{#                  <p class="w3-text-grey">Fresh tomatoes, mozzarella, chicken, onions</p>#}
+{#                  <hr>#}
+{##}
+{#                  <h1><b>Pineapple'o'clock</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$16.50</span></h1>#}
+{#                  <p class="w3-text-grey">Fresh tomatoes, mozzarella, fresh pineapple, bacon, fresh basil</p>#}
+{#                  <hr>#}
+{##}
+{#                  <h1><b>Meat Town</b> <span class="w3-tag w3-red w3-round">Hot!</span><span class="w3-right w3-tag w3-dark-grey w3-round">$20.00</span></h1>#}
+{#                  <p class="w3-text-grey">Fresh tomatoes, mozzarella, hot pepporoni, hot sausage, beef, chicken</p>#}
+{#                  <hr>#}
+{##}
+{#                  <h1><b>Parma</b> <span class="w3-tag w3-grey w3-round">New</span><span class="w3-right w3-tag w3-dark-grey w3-round">$21.50</span></h1>#}
+{#                  <p class="w3-text-grey">Fresh tomatoes, mozzarella, parma, bacon, fresh arugula</p>#}
+{#                </div>#}
+{##}
+{#                <div id="Pasta" class="w3-container menu w3-padding-32 w3-white">#}
+{#                  <h1><b>Lasagna</b> <span class="w3-tag w3-grey w3-round">Popular</span> <span class="w3-right w3-tag w3-dark-grey w3-round">$13.50</span></h1>#}
+{#                  <p class="w3-text-grey">Special sauce, mozzarella, parmesan, ground beef</p>#}
+{#                  <hr>#}
+{##}
+{#                  <h1><b>Ravioli</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$14.50</span></h1>#}
+{#                  <p class="w3-text-grey">Ravioli filled with cheese</p>#}
+{#                  <hr>#}
+{##}
+{#                  <h1><b>Spaghetti Classica</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$11.00</span></h1>#}
+{#                  <p class="w3-text-grey">Fresh tomatoes, onions, ground beef</p>#}
+{#                  <hr>#}
+{##}
+{#                  <h1><b>Seafood pasta</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$25.50</span></h1>#}
+{#                  <p class="w3-text-grey">Salmon, shrimp, lobster, garlic</p>#}
+{#                </div>#}
+{##}
+{##}
+{#                <div id="Starter" class="w3-container menu w3-padding-32 w3-white">#}
+{#                  <h1><b>Today's Soup</b> <span class="w3-tag w3-grey w3-round">Seasonal</span><span class="w3-right w3-tag w3-dark-grey w3-round">$5.50</span></h1>#}
+{#                  <p class="w3-text-grey">Ask the waiter</p>#}
+{#                  <hr>#}
+{##}
+{#                  <h1><b>Bruschetta</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$8.50</span></h1>#}
+{#                  <p class="w3-text-grey">Bread with pesto, tomatoes, onion, garlic</p>#}
+{#                  <hr>#}
+{##}
+{#                  <h1><b>Garlic bread</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$9.50</span></h1>#}
+{#                  <p class="w3-text-grey">Grilled ciabatta, garlic butter, onions</p>#}
+{#                  <hr>#}
+{##}
+{#                  <h1><b>Tomozzarella</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$10.50</span></h1>#}
+{#                  <p class="w3-text-grey">Tomatoes and mozzarella</p>#}
+{#                </div><br>#}
+{##}
+{#              </div>#}
+{#            </div>#}
+{#          </div>#}
+{#        </div>#}
+{#    </div>#}
+
+        <!-- Admin -->
+    <div id="admin" class="w3-modal">
+        <div class="w3-modal-content w3-animate-zoom">
+            <div class="w3-container w3-black w3-display-container">
+                <span onclick="document.getElementById('admin').style.display='none'" class="w3-button w3-display-topright w3-xlarge">close</span>
+                <div class="w3-container w3-padding-64 w3-black w3-grayscale w3-xlarge" id="admin" style="margin-top: 64px">
+                    <div class="w3-content" style="width: 600px">
+                        <h1 class="w3-center w3-jumbo" style="margin-bottom:64px">Hello {{ u }}</h1>
+                        <a href="#" class="notification">
+                            <span>Orders</span>
+                            <span class="badge">{{ o }}</span>
+                        </a>
+                        <a href="#" class="notification">
+                            <span>Reservations</span>
+                            <span class="badge">{{ r }}</span>
+                        </a>
+                        <a href="#" class="notification">
+                            <span>Contacts</span>
+                            <span class="badge">{{ co }}</span>
+                        </a>
+                        <a href="#" class="notification">
+                            <span>Careers</span>
+                            <span class="badge">{{ ca }}</span>
+                        </a>
+                    </div>
+                    <form method="post" action="{% url 'user:saveinlog2' %}">
+                        {% csrf_token %}
+                        <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Your UserName" required name="userNAME"></p>
+                        <p><input class="w3-input w3-padding-16 w3-border" type="password" placeholder="Your Password" required name="passWORD"></p>
+                        <p><button class="w3-button w3-blue-grey w3-block" type="submit">Login</button></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header with image -->
+    <header class="bgimg w3-display-container w3-grayscale-min" id="home">
+      <div class="w3-display-bottomleft w3-padding">
+        <span class="w3-tag w3-xlarge">All days except Friday</span>
+        <span class="w3-tag w3-xlarge">Open from 9am to 2am</span>
+        <span class="w3-tag w3-xlarge">University St, Mansoura</span>
+      </div>
+      <div class="w3-display-middle w3-center">
+        <span class="w3-text-white w3-hide-small" style="font-size:100px">PIZZA<br>LAZIZA</span>
+        <span class="w3-text-white w3-hide-large w3-hide-medium" style="font-size:60px"><b>PIZZA<br>LAZIZA</b></span>
+        <p><a href="#menuu" class="w3-button w3-xxlarge w3-black">check the menu</a></p>
+      </div>
+    </header>
+
+
+    <div id="about" class="w3-modal">
+      <div class="w3-modal-content w3-animate-zoom">
+        <div class="w3-container w3-black w3-display-container">
+          <span onclick="document.getElementById('about').style.display='none'" class="w3-button w3-display-topright w3-xlarge">close</span>
+            <!-- About Container -->
+            <div class="w3-container w3-padding-64 w3-red w3-grayscale w3-xlarge" id="about" style="margin-top: 64px">
+              <div class="w3-content">
+                <h1 class="w3-center w3-jumbo" style="margin-bottom:64px">About</h1>
+                <p>The Pizza Restaurant was founded in blabla by Mr. Italiano in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p><strong>The Chef?</strong> Mr. Italiano himself <a href="{% url 'user:inlog' %}"><img src="{% static 'user/img/chef.jpg' %}" style="width:150px" class="w3-circle w3-right" alt="Chef"></a></p>
+                <p>We are proud of our interiors.</p>
+                <img src="{% static 'user/img/onepage_restaurant.jpg' %}" style="width:100%" class="w3-margin-top w3-margin-bottom" alt="Restaurant">
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="location" class="w3-modal">
+      <div class="w3-modal-content w3-animate-zoom">
+        <div class="w3-container w3-black w3-display-container">
+          <span onclick="document.getElementById('location').style.display='none'" class="w3-button w3-display-topright w3-xlarge">close</span>
+            <!-- Image of location/map -->
+            <div style="padding: 20px">
+                <span class="w3-tag w3-xlarge">14 University St, Mansoura</span>
+                <img src="{% static 'user/img/map.jpg' %}" class="w3-image w3-greyscale" style="width:100%;">
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="hours" class="w3-modal">
+      <div class="w3-modal-content w3-animate-zoom">
+        <div class="w3-container w3-black w3-display-container">
+          <span onclick="document.getElementById('hours').style.display='none'" class="w3-button w3-display-topright w3-xlarge">close</span>
+            <!-- Openning Hours -->
+            <h1><b>Opening Hours</b></h1>
+                <div class="w3-row">
+                    <div class="w3-col s6" style="font-size: xx-large">
+                        <p>Saturday 9:00 am - 2:00 am</p>
+                        <p>Sunday 9:00 am - 2:00 am</p>
+                        <p>Mon & Tue 10:00 am - 1:00 am</p>
+                    </div>
+                    <div class="w3-col s6" style="font-size: xx-large">
+                        <p>Wednesday 9:00 am - 2:00 am</p>
+                        <p>Thursday 9:00 am - 2:00 am</p>
+                        <p> Friday CLOSED</p>
+                    </div>
+                </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="table" class="w3-modal">
+      <div class="w3-modal-content w3-animate-zoom">
+        <div class="w3-container w3-black w3-display-container">
+          <span onclick="document.getElementById('table').style.display='none'" class="w3-button w3-display-topright w3-xlarge">close</span>
+            <!-- Table -->
+            <div class="w3-container w3-padding-64 w3-blue-grey w3-grayscale-min w3-xlarge" style="margin-top: 64px">
+              <div class="w3-content">
+                <h1 class="w3-center w3-jumbo" style="margin-bottom:64px">Reserve a table</h1>
+                <p>Reserve a table online now or call us at 05050515-122330</p>
+                <p><span class="w3-tag">FYI!</span> We offer full-service catering for any event, large or small. We understand your needs and we will cater the food to satisfy the biggerst criteria of them all, both look and taste.</p>
+                <p class="w3-xxlarge"><strong>Reserve</strong> a table, ask for today's special or just send us a message:</p>
+                <form method="post" action="{% url 'user:reserve' %}">
+                    {% csrf_token %}
+                  <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="UserName" required name="Name"></p>
+                    <p><input class="w3-input w3-padding-16 w3-border" type="email" placeholder="Email" required name="Email"></p>
+                    <p><input class="w3-input w3-padding-16 w3-border" type="tel" placeholder="Phone" required name="Phone"></p>
+                  <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="How many people" required name="People"></p>
+                  <p><input class="w3-input w3-padding-16 w3-border" type="date" placeholder="Date" required name="Date" ></p>
+                    <p><input class="w3-input w3-padding-16 w3-border" type="time" placeholder="Time" required name="Time"></p>
+                  <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Message \ Special requirements" required name="Message"></p>
+                  <p><button class="w3-button w3-light-grey w3-block" type="submit">RESERVE</button></p>
+                </form>
+                  <p><a style="text-decoration: none" href="{% url 'user:reserves' %}"><button class="w3-button w3-green w3-block" type="submit">EDIT EXISTING RESERVATION</button></a></p>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="contact" class="w3-modal">
+      <div class="w3-modal-content w3-animate-zoom">
+        <div class="w3-container w3-black w3-display-container">
+          <span onclick="document.getElementById('contact').style.display='none'" class="w3-button w3-display-topright w3-xlarge">close</span>
+                <!-- Contact -->
+              <div class="w3-container" id="contact" style="font-size: x-large">
+                <h2>Contact <span>to submit complaints or send a private message</span></h2>
+                <i class="fa fa-map-marker" style="width:30px"></i> Mansoura, Eg<br>
+                <i class="fa fa-phone" style="width:30px"></i> Phone: 01000011001<br>
+                <i class="fa fa-envelope" style="width:30px"> </i> Email: mail@mail.com<br>
+                <p>Questions? Go ahead, ask them:</p>
+                <form action="{% url 'user:complaint' %}" method="post">
+                    {% csrf_token %}
+                  <p><input class="w3-input w3-border" type="text" placeholder="Name" required name="name"></p>
+                  <p><input class="w3-input w3-border" type="email" placeholder="Email" required name="email"></p>
+                  <p><input class="w3-input w3-border" type="text" placeholder="Message" required name="message"></p>
+                <p><button class="w3-button w3-green w3-block" type="submit">SEND MESSAGE</button></p>
+                </form>
+              </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div id="careers" class="w3-modal">
+      <div class="w3-modal-content w3-animate-zoom">
+        <div class="w3-container w3-black w3-display-container">
+          <span onclick="document.getElementById('careers').style.display='none'" class="w3-button w3-display-topright w3-xlarge">close</span>
+                <!-- Contact -->
+              <div class="w3-container" id="contact" style="font-size: x-large">
+                    <div>
+                        <h2>Need Positions</h2>
+                        {% for i in depart %}
+                            <p><strong style="color: green">{{i.dep_name}}</strong>: {{ i.dep_need }}</p>
+                        {% endfor %}
+                    </div>
+                  <h2 style="text-align: center">Apply NOW</h2>
+                  <form method="post" action="{% url 'user:apply' %}" enctype="multipart/form-data" style="margin: auto">
+                      {% csrf_token %}
+                    <p><input class="w3-input w3-border" type="text" placeholder="Name" required name="nname"></p>
+                    <p><input class="w3-input w3-border" type="email" placeholder="Email" required name="eemail"></p>
+                    <p><input class="w3-input w3-padding-16 w3-border" type="tel" placeholder="Phone" required name="pphone"></p>
+                        <label>role</label>
+                      <select name="role" class="w3-input w3-border">
+                          <option>manager</option>
+                          <option>Responsible</option>
+                          <option>Chef</option>
+                          <option>delivery</option>
+                          <option>Casher</option>
+                      </select>
+                      <label>Have you worked in restaurants before in this position?</label>
+                      <select name="work" class="w3-input w3-border">
+                          <option>Yes</option>
+                          <option>No</option>
+                      </select>
+                      <label>What is the duration of your experience in this field? (optionally)</label>
+                      <select name="exp" class="w3-input w3-border">
+                          <option>0</option>
+                          <option>0 to 3 months</option>
+                          <option>3 to 6 months</option>
+                          <option>6 to 12 months</option>
+                          <option>1 to  1.5 years</option>
+                          <option>1.5 to 2 years</option>
+                          <option>2 to 3 years</option>
+                          <option>more than 3 year</option>
+                      </select>
+                    <p>Upload your Resume: <input class="w3-input w3-border" type="file" placeholder="Your Resume" name="MyFile"></p>
+                    <p><button class="w3-button w3-green w3-block" type="submit">APPLY</button></p>
+                </form>
+              </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Menu Container -->
+<div class="w3-container w3-black w3-padding-64 w3-xxlarge" id="menuu">
+  <div class="w3-content">
+    <h1 class="w3-center w3-jumbo" style="margin-bottom:64px">THE MENU</h1>
+    <div class="w3-row w3-center w3-border w3-border-dark-grey">
+        {% for cat in c %}
+            <a href="{% url 'user:product' cat.id %}#menuu">
+                <div class="w3-col s4 link w3-padding-large w3-hover-red">{{cat.name}}</div>
+            </a>
+        {% endfor %}
+
+    </div>
+
+
+    <div class="w3-container menuu w3-padding-32 w3-white">
+        {% for pro in p %}
+            <h1><b>{{pro.name}}</b> <span class="w3-right w3-tag w3-dark-grey w3-round">${{pro.price}}</span></h1>
+            <p class="w3-text-grey">{{pro.components}}
+                <form method="post" action="{% url 'cart:cart_add' pro.id %}">
+                    {% csrf_token %}
+                    {{cart_product_form}}
+                    <input type="submit" value="Add to cart">
+                </form>
+            </p><hr>
+        {% endfor %}
+    </div><br>
+  </div>
+</div>
+
+    <script rel="script" type="text/javascript" src="{% static "user/js/plugin1home.js" %}"></script>
+    <script rel="script" type="text/javascript" href="{% static "user/js/plugin1home.js" %}"></script>
+</body>
+</html>

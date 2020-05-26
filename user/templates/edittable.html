@@ -1,0 +1,26 @@
+{% extends "reserve.html" %}
+
+{% block title_ %}
+	Edit
+{% endblock title_ %}
+
+{% block content %}
+    <div style="height:20px;"></div>
+	<div class="center-div">
+        <div class="w3-container w3-padding-64 w3-blue-grey w3-grayscale-min w3-xlarge" style="margin-top: 64px">
+              <div class="w3-content">
+                <form method="post" action="{% url 'user:saveupdatetable' st_id %}">
+                    {% csrf_token %}
+                  <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="UserName" required name="NAME" value="{{ data1 }}"></p>
+                    <p><input class="w3-input w3-padding-16 w3-border" type="email" placeholder="Email" required name="EMAIL" value="{{ data2 }}"></p>
+                    <p><input class="w3-input w3-padding-16 w3-border" type="tel" placeholder="Phone" required name="PHONE" value="{{ data3 }}"></p>
+                  <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="How many people" required name="PEOPLE" value="{{ data4 }}"></p>
+                  <p><input class="w3-input w3-padding-16 w3-border" type="date" placeholder="Date" required name="DATE" value="{{ data5 }}"></p>
+                    <p><input class="w3-input w3-padding-16 w3-border" type="time" placeholder="Time" required name="TIME" value="{{ data6 }}"></p>
+                  <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Message \ Special requirements" required name="MESSAGE" value="{{ data7 }}"></p>
+                  <p><button class="w3-button w3-light-grey w3-block" type="submit">UPDATE RESERVATION</button></p>
+                </form>
+              </div>
+            </div>
+	</div>
+{% endblock content %}

@@ -1,0 +1,44 @@
+
+{%block messages%}
+
+    {%for message in messages %}
+         {%if "success" in message.tags %}
+            <div class="alert alert-success" role="alert" >
+				<ul>
+			    	<li>{{ message }}</li>
+				</ul>
+            </div>
+         {%endif%}
+    {%endfor%}
+
+    {%for message in messages %}
+         {%if "error" in message.tags %}
+              <div class="alert alert-danger" role="alert" >
+				<ul>
+			    	<li>{{ message }}</li>
+				</ul>
+            </div>
+         {%endif%}
+    {%endfor%}
+
+    {%for message in messages %}
+         {%if "warning" in message.tags %}
+            <div class="alert alert-warning" role="alert" >
+				<ul>
+			    	<li>{{ message }}</li>
+				</ul>
+            </div>
+         {%endif%}
+    {%endfor%}
+
+    {%for message in messages %}
+         {%if "info" in message.tags %}
+            <div class="alert alert-info" role="alert" >
+				<ul>
+			    	<li>{{ message }}</li>
+				</ul>
+            </div>
+         {%endif%}
+    {%endfor%}
+
+{%endblock%}
